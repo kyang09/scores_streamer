@@ -49,3 +49,5 @@ Temporary Items
 #Python Cache
 __pycache__
 *.pyc
+*~
+*.swp
