@@ -16,8 +16,8 @@ class MemoryStore:
         obj.__dict__ = MemoryStore._shared_data_state
         return obj
 
-    # lookup_classes contains an array of classes used to query for data.
     def __init__(self, lookup_classes):
+        # lookup_classes contains an array of classes used to query for data.
         self._storage = []
         self._lookup_tbl = {}
         self._lookup_classes = lookup_classes # List of tuples of (column name, class).
@@ -47,6 +47,8 @@ class MemoryStore:
                 class_name = lookup_tup[1].__name__
                 if col_name in data_dict:
                     data_identifier = data_dict[col_name]
+                    if not isinstance(data_identifier, str):
+                        data_identifier = str(data_identifier)
                     data_class = lookup_tup[1] # Class of data column.
                     # The reason for using data_identifier as the value is because
                     # the values of each column can represent unique objects.
