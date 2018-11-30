@@ -2,7 +2,7 @@ import json
 
 
 class DataStore:
-    
+
     # I'm using the Borg design pattern to keep state of database.
     # I thought to use this because we may need to expand on the db,
     # and Borg allows subclassing of shared parent state.
@@ -27,9 +27,9 @@ class DataStore:
             col_name = lookup_tup[0]
             class_name = lookup_tup[1].__name__
             if class_name in self._lookup_tbl:
-                self._lookup_tbl:[class_name][col_name] = dict()
+                self._lookup_tbl[class_name][col_name] = dict()
             else:
-                self._lookup_tbl:[class_name] = {col_name : dict()}
+                self._lookup_tbl[class_name] = {col_name : dict()}
 
     def store(self, data, data_format="json"):
         """
@@ -40,15 +40,17 @@ class DataStore:
         """
         if data_format == "json":
             data_dict = json.loads(data)
+            self._storage.append(data_dict) # Store JSON row in storage.
             for lookup_tup in self._lookup_classes: # colmap is a tuple of (column name, class).
                 col_name = lookup_tup[0]
                 class_name = lookup_tup[1].__name__
                 if col_name in data_dict:
-                    data_value = data_dict[col_name]
+                    data_identifier = data_dict[col_name]
                     data_class = lookup_tup[1] # Class of data column.
-                    # TODO: Save data correctly to _storage and _lookup_tbl
-                    self._lookup_tbl[class_name][col_name][data_value] = data_class(data_value)
-            self._storage.append(json.loads(data))
+                    # The reason for using data_identifier as the value is because
+                    # the values of each column can represent unique objects.
+                    obj = data_class(data_identifier)
+                    self._lookup_tbl[class_name][col_name][data_identifier] = data_class(data_identifier)
 
     def get(self, lookup_class, id=-1):
         """
