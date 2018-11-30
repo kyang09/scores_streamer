@@ -45,6 +45,7 @@ class DataStore:
                 if col_name in data_dict:
                     data_value = data_dict[col_name]
                     data_class = lookup_tup[1] # Class of data column.
+                    # TODO: Save data correctly to _storage and _lookup_tbl
                     self._lookup_tbl[class_name][col_name][data_value] = data_class(data_value)
             self._storage.append(json.loads(data))
 
