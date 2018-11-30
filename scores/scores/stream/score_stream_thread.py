@@ -5,10 +5,10 @@ import json
 
 
 class ScoreStreamThread(threading.Thread):
-    def __init__(self, db):
+    def __init__(self, db, url):
         threading.Thread.__init__(self, target=self.stream_threader)
         self.kill = threading.Event()
-        self._url = "http://live-test-scores.herokuapp.com/scores"
+        self._url = url
         self._db = db
 
     def stream_and_collect_scores(self, sse_client_messages):

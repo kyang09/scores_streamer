@@ -8,10 +8,11 @@ class ScoresApi:
     def __init__(self):
         self._stream_thread = None
         self._db = DataStore([("studentId", Student), ("exam", Exam)])
+        self._url = "http://live-test-scores.herokuapp.com/scores"
 
     def start(self):
         """Starts streaming and processing scores data."""
-        self._stream_thread = ScoreStreamThread(self._db)
+        self._stream_thread = ScoreStreamThread(self._db, self._url)
         self._stream_thread.daemon = True
         self._stream_thread.start()
         print("started")
