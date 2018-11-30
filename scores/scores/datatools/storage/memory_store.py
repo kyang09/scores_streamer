@@ -1,7 +1,7 @@
 import json
 
 
-class DataStore:
+class MemoryStore:
 
     # I'm using the Borg design pattern to keep state of database.
     # I thought to use this because we may need to expand on the db,
@@ -12,8 +12,8 @@ class DataStore:
     # for shared arbitrary attributes. The *args and **kwargs params
     # are for variable length non-keyworded and keyworded argument lists.
     def __new__(cls, *args, **kwargs):
-        obj = super(DataStore, cls).__new__(cls)
-        obj.__dict__ = DataStore._shared_data_state
+        obj = super(MemoryStore, cls).__new__(cls)
+        obj.__dict__ = MemoryStore._shared_data_state
         return obj
 
     # lookup_classes contains an array of classes used to query for data.
@@ -33,7 +33,7 @@ class DataStore:
 
     def store(self, data, data_format="json"):
         """
-        Stores data into the DataStore storage.
+        Stores data into the MemoryStore storage.
 
         :param data: String format of data.
         :param data_format: Format option of the data. JSON by default.
@@ -56,7 +56,7 @@ class DataStore:
 
     def get(self, lookup_class, col_name="", identifier=""):
         """
-        Get DataStore data from storage based on class and class attributes.
+        Get MemoryStore data from storage based on class and class attributes.
 
         :param lookup_class: The class to look up in the _lookup_tbl.
         :param col_name: Name of the field column in the datastore. Default is "".
@@ -75,7 +75,7 @@ class DataStore:
 
     def _get_all(self, lookup_class):
         """
-        Get all DataStore data from storage based on class.
+        Get all MemoryStore data from storage based on class.
 
         :param lookup_class: The class to look up in the _lookup_tbl.
         :returns: List of dictionary results.
@@ -90,7 +90,7 @@ class DataStore:
 
     def _get_all_from_col(self, lookup_class, col_name=""):
         """
-        Get DataStore data from storage based on class and column name.
+        Get MemoryStore data from storage based on class and column name.
 
         :param lookup_class: The class to look up in the _lookup_tbl.
         :param col_name: Name of the field column in the datastore. Default is "".
@@ -107,7 +107,7 @@ class DataStore:
 
     def _get_all_with_id(self, lookup_class, identifier=""):
         """
-        Get DataStore data from storage based on class and column name.
+        Get MemoryStore data from storage based on class and column name.
 
         :param lookup_class: The class to look up in the _lookup_tbl.
         :param identifier: Value that represents the object at a column. Default is "".
@@ -124,7 +124,7 @@ class DataStore:
 
     def _get_all_with_col_id(self, lookup_class, col_name="", identifier=""):
         """
-        Get DataStore data from storage based on class, column name, and identifier.
+        Get MemoryStore data from storage based on class, column name, and identifier.
 
         :param lookup_class: The class to look up in the _lookup_tbl.
         :param col_name: Name of the field column in the datastore. Default is "".

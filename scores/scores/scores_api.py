@@ -1,5 +1,5 @@
 from .stream.score_stream_thread import ScoreStreamThread
-from .datatools.storage.memory_store import DataStore
+from .datatools.storage.memory_store import MemoryStore
 from .datatools.studentpkg.student import Student
 from .datatools.exampkg.exam import Exam
 
@@ -8,7 +8,7 @@ class ScoresApi:
     
     def __init__(self):
         self._stream_thread = None
-        self._db = DataStore([("studentId", Student), ("exam", Exam)])
+        self._db = MemoryStore([("studentId", Student), ("exam", Exam)])
         self._url = "http://live-test-scores.herokuapp.com/scores"
 
     def start(self):
