@@ -19,8 +19,6 @@ class ScoreStreamThread(threading.Thread):
             self._db.store(json_event.data)
 
     def stream_threader(self):
-        # response = requests.get(self._url, stream=True)
-        # client = sseclient.SSEClient(response)
         client_events = sseclient.SSEClient(self._url)
         self.stream_and_collect_scores(client_events)
 
