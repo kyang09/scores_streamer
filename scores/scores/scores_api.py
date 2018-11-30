@@ -5,9 +5,10 @@ from .datatools.exampkg.exam import Exam
 
 
 class ScoresApi:
-    
+
     def __init__(self):
         self._stream_thread = None
+        # Initializing MemoryStore should make it act like a singleton resource.
         self._db = MemoryStore([("studentId", Student), ("exam", Exam)])
         self._url = "http://live-test-scores.herokuapp.com/scores"
 
