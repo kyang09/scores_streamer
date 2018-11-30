@@ -1,5 +1,6 @@
 import unittest
 
+
 class TestScoresApi(unittest.TestCase):
 
     def setUp(self):
