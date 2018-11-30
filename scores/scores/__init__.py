@@ -1,1 +1,1 @@
-__all__ = ['score_stream_thread']
+__all__ = ["scores_api"] # Added this in case user wants to do: import *

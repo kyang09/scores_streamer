@@ -1,10 +1,14 @@
 from .stream.score_stream_thread import ScoreStreamThread
+from .datatools.storage.memory_store import DataStore
+from .datatools.studentpkg.student import Student
+from .datatools.exampkg.exam import Exam
 
 class ScoresApi:
     # mode=0 is JSON. mode=1 is readable output.
     def __init__(self, mode=0):
         self._mode = mode
         self._stream_thread = None
+        self._db = DataStore([Student, Exam])
 
     # Starts streaming and processing scores data.
     def start(self):
@@ -15,8 +19,9 @@ class ScoresApi:
 
     # Stops streaming and processing scores data.
     def stop(self):
-        self._stream_thread.stop() # Set internal event flag to True to kill thread.
-        self._stream_thread.join() # Make sure thread finishes before continuing with main thread.
+        if self._stream_thread:
+            self._stream_thread.stop() # Set internal event flag to True to kill thread.
+            self._stream_thread.join() # Make sure thread finishes before continuing with main thread.
         print("stopped")
     
     # Lists all students that have received at least one test score.
