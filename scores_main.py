@@ -75,15 +75,16 @@ def main(argv):
             exam_id = 0 # Replace with actual exam id from input.
             api.exam_results_and_average(exam_id)
         elif user_input == "start":
-            print("started")
+            print("starting")
             api.start()
         elif user_input == "stop":
-            print("stopped")
+            print("stopping")
             api.stop()
         elif user_input == "menu":
             print("menu")
             cli_commands_message()
         elif user_input == "quit":
+            print("quitting and stopping")
             api.stop() # Since we made our thread a daemon (to main thread), we may not need to call stop() here.
             quit()
         else:

@@ -8,18 +8,16 @@ class ScoresApi:
 
     # Starts streaming and processing scores data.
     def start(self):
-        if self._stream_thread:
-            print(self._stream_thread._i)
         self._stream_thread = ScoreStreamThread()
         self._stream_thread.daemon = True
         self._stream_thread.start()
+        print("started")
 
     # Stops streaming and processing scores data.
     def stop(self):
         self._stream_thread.stop() # Set internal event flag to True to kill thread.
         self._stream_thread.join() # Make sure thread finishes before continuing with main thread.
-        if self._stream_thread:
-            print(self._stream_thread._i)
+        print("stopped")
     
     # Lists all students that have received at least one test score.
     def list_students(self):
