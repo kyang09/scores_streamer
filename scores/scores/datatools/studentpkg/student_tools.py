@@ -2,12 +2,13 @@
 
 from ..storage.memory_store import MemoryStore
 from ..exampkg import exam_tools
-from student import Student
+from .student import Student
 
 
 ID_FIELD_NAME = "studentId"
 
-def get_students(self):
+
+def get_students():
     """
     Get students with at least one exam score.
 
@@ -23,10 +24,11 @@ def get_students(self):
     return list(student_ids)
 
 
-def get_results_by_studentid(self, lookup_class, id_col_name, student_id):
+def get_results_by_studentid(lookup_class, id_col_name, student_id):
     return MemoryStore.get(Student, id_col_name, student_id)
 
-def get_average_by_studentid(self, id_col_name, student_id):
+
+def get_average_by_studentid(id_col_name, student_id):
     average = -1.0 # Average of -1.0 means student doesn't have any scores.
     scores = []
     results = MemoryStore.get(Student, id_col_name, student_id)
@@ -36,9 +38,10 @@ def get_average_by_studentid(self, id_col_name, student_id):
     return average
 
 
-def get_results_average_by_studentid(self, id_col_name, student_id):
+def get_results_average_by_studentid(id_col_name, student_id):
     # TODO: Finish implementing.
     return MemoryStore.get(Student)
 
-def is_valid_student(self, row_dict):
+
+def is_valid_student(row_dict):
     return ID_FIELD_NAME in row_dict and row_dict[ID_FIELD_NAME] != None

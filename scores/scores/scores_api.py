@@ -34,7 +34,7 @@ class ScoresApi:
 
         :returns: Result of all students that have received at least one test score.
         """
-        student_tools.get_students()
+        return student_tools.get_students()
 
     def list_exams(self):
         """
