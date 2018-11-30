@@ -42,7 +42,8 @@ class DataStore:
             data_dict = json.loads(data)
             self._storage.append(data_dict) # Store JSON row in storage.
             for lookup_tup in self._lookup_classes: # colmap is a tuple of (column name, class).
-                col_name = lookup_tup[0]
+                # Make sure the key to the lookup table is a string to follow a standard.
+                col_name = lookup_tup[0] if isinstance(lookup_tup[0], str) else str(lookup_tup[0])
                 class_name = lookup_tup[1].__name__
                 if col_name in data_dict:
                     data_identifier = data_dict[col_name]
@@ -53,12 +54,88 @@ class DataStore:
                     obj.add_db_index(len(self._storage) - 1) # If -1 index, nothing is in storage.
                     self._lookup_tbl[class_name][col_name][data_identifier] = data_class(data_identifier)
 
-    def get(self, lookup_class, id=-1):
+    def get(self, lookup_class, col_name="", identifier=""):
         """
-        Get DataStore data from storage.
+        Get DataStore data from storage based on class and class attributes.
 
         :param lookup_class: The class to look up in the _lookup_tbl.
-        :param id: int ID of the object to find. id=-1 to get all lookup_class objects.
+        :param col_name: Name of the field column in the datastore. Default is "".
+        :param identifier: Value that represents the object at a column. Default is "".
         :returns: List of dictionary results.
         """
-        pass
+        if identifier == "":
+            if col_name == "":
+                return self._get_all(lookup_class)
+            else:
+                return self._get_all_with_col(lookup_class, col_name)
+        elif col_name == "":
+            return self._get_all_with_id(lookup_class, identifier)
+        # Get specific results based on col_name and identifier.
+        return self._get_all_with_col_id(lookup_class, col_name, identifier)
+
+    def _get_all(self, lookup_class):
+        """
+        Get all DataStore data from storage based on class.
+
+        :param lookup_class: The class to look up in the _lookup_tbl.
+        :returns: List of dictionary results.
+        """
+        result = []
+        class_dict = self._lookup_tbl[lookup_class.__name__]
+        for col_name, data_id_dict in class_dict.items():
+            for data_id, data_obj in data_id_dict.items():
+                for ndx in data_obj.get_db_indices():
+                    result.append(self._storage[ndx])
+        return result
+
+    def _get_all_from_col(self, lookup_class, col_name=""):
+        """
+        Get DataStore data from storage based on class and column name.
+
+        :param lookup_class: The class to look up in the _lookup_tbl.
+        :param col_name: Name of the field column in the datastore. Default is "".
+        :returns: List of dictionary results.
+        """
+        result = []
+        if col_name != "":
+            class_dict = self._lookup_tbl[lookup_class.__name__]
+            data_id_dict = class_dict[col_name]
+            for data_id, data_obj in data_id_dict.items():
+                for ndx in data_obj.get_db_indices():
+                    result.append(self._storage[ndx])
+        return result
+
+    def _get_all_with_id(self, lookup_class, identifier=""):
+        """
+        Get DataStore data from storage based on class and column name.
+
+        :param lookup_class: The class to look up in the _lookup_tbl.
+        :param identifier: Value that represents the object at a column. Default is "".
+        :returns: List of dictionary results.
+        """
+        result = []
+        if identifier != "":
+            class_dict = self._lookup_tbl[lookup_class.__name__]
+            for col_name, data_id_dict in class_dict.items():
+                data_obj = data_id_dict[identifier]
+                for ndx in data_obj.get_db_indices():
+                    result.append(self._storage[ndx])
+            return result
+
+    def _get_all_with_col_id(self, lookup_class, col_name="", identifier=""):
+        """
+        Get DataStore data from storage based on class, column name, and identifier.
+
+        :param lookup_class: The class to look up in the _lookup_tbl.
+        :param col_name: Name of the field column in the datastore. Default is "".
+        :param identifier: Value that represents the object at a column. Default is "".
+        :returns: List of dictionary results.
+        """
+        result = []
+        if col_name != "" and identifier != "":
+            class_dict = self._lookup_tbl[lookup_class.__name__]
+            data_obj = class_dict[col_name][identifier]
+            for ndx in data_obj.get_db_indices():
+                result.append(self._storage[ndx])
+        return result
+

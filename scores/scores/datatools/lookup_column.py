@@ -11,3 +11,6 @@ class LookupColumn:
         :param index: Index to a location in the datastore.
         """
     	self._db_indices.append(index)
+
+    def get_db_indices(self):
+    	return self._db_indices
