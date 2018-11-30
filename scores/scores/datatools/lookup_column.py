@@ -13,4 +13,5 @@ class LookupColumn:
     	self._db_indices.append(index)
 
     def get_db_indices(self):
+    	"""Gets indices of LookupColumn object locations in the datastore."""
     	return self._db_indices
