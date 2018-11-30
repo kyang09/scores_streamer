@@ -18,31 +18,42 @@ class DataStore:
     # lookup_classes contains an array of classes used to query for data.
     def __init__(self, lookup_classes):
         self._storage = []
-        self._lookup_classes = lookup_classes
         self._lookup_tbl = {}
+        self._lookup_classes = lookup_classes # List of tuples of (column name, class).
 
-        for lookup_class in self._lookup_classes:
-            self._lookup_tbl[str(lookup_class.__name__)] = dict()
+        # Populate storage classes and attributes.
+        for lookup_tup in self._lookup_classes:
+            col_name = lookup_tup[0]
+            class_name = lookup_tup[1].__name__
+            if class_name in self._lookup_tbl:
+                self._lookup_tbl:[class_name][col_name] = dict()
+            else:
+                self._lookup_tbl:[class_name] = {col_name : dict()}
 
     def store(self, data, data_format="json"):
-        """Stores data into the DataStore storage.
-        
-        Parameters:
-        data (str): String format of data.
-        data_format (str): Format option of the data. JSON by default.
+        """
+        Stores data into the DataStore storage.
+
+        :param data: String format of data.
+        :param data_format: Format option of the data. JSON by default.
         """
         if data_format == "json":
             data_dict = json.loads(data)
+            for lookup_tup in self._lookup_classes: # colmap is a tuple of (column name, class).
+                col_name = lookup_tup[0]
+                class_name = lookup_tup[1].__name__
+                if col_name in data_dict:
+                    data_value = data_dict[col_name]
+                    data_class = lookup_tup[1] # Class of data column.
+                    self._lookup_tbl[class_name][col_name][data_value] = data_class(data_value)
+            self._storage.append(json.loads(data))
 
     def get(self, lookup_class, id=-1):
-        """Get DataStore data from storage.
-        
-        Parameters:
-        lookup_class (class): The class to look up in the _lookup_tbl.
-        id (int): ID of the object to find.
-            Default of -1 gets all lookup_class objects.
-        
-        Returns:
-        tuple: Tuple of the _lookup_tbl result row.
+        """
+        Get DataStore data from storage.
+
+        :param lookup_class: The class to look up in the _lookup_tbl.
+        :param id: int ID of the object to find. id=-1 to get all lookup_class objects.
+        :returns: List of dictionary results.
         """
         pass

@@ -16,7 +16,7 @@ class ScoreStreamThread(threading.Thread):
         for json_payload in sse_client_messages:
             if self.kill.is_set():
                 break
-            db.store(json_payload)
+            self._db.store(json_payload)
 
     def stream_threader(self):
         # response = requests.get(self._url, stream=True)
