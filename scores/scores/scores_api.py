@@ -3,6 +3,7 @@ from .datatools.storage.memory_store import DataStore
 from .datatools.studentpkg.student import Student
 from .datatools.exampkg.exam import Exam
 
+
 class ScoresApi:
     # mode=0 is JSON. mode=1 is readable output.
     def __init__(self, mode=0):
@@ -12,7 +13,7 @@ class ScoresApi:
 
     # Starts streaming and processing scores data.
     def start(self):
-        self._stream_thread = ScoreStreamThread()
+        self._stream_thread = ScoreStreamThread(self._db)
         self._stream_thread.daemon = True
         self._stream_thread.start()
         print("started")
