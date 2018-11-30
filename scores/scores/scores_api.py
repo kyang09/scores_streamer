@@ -2,6 +2,8 @@ from .stream.score_stream_thread import ScoreStreamThread
 from .datatools.storage.memory_store import MemoryStore
 from .datatools.studentpkg.student import Student
 from .datatools.exampkg.exam import Exam
+from .datatools.studentpkg import student_tools
+from .datatools.exampkg import exam_tools
 
 
 class ScoresApi:
@@ -32,7 +34,7 @@ class ScoresApi:
 
         :returns: Result of all students that have received at least one test score.
         """
-        pass
+        student_tools.get_students()
 
     def list_exams(self):
         """
