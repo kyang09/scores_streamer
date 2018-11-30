@@ -8,3 +8,6 @@ This is a simple package that provides an API to stream and process data from a 
 * `studentpkg`is a subpackage of `datatools` containing modules: `student_tools`, `student`.
 * `exampkg` is a subpackage of `datatools` containing modules: `exam_tools`, `exam`.
 * `storage` is a subpackage of `datatools` containing the module `memory_store`.
+
+# Tests
+* Tests are included in the `test` directory/subpackage.
