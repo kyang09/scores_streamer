@@ -2,6 +2,7 @@ import json
 
 
 class DataStore:
+    
     # I'm using the Borg design pattern to keep state of database.
     # I thought to use this because we may need to expand on the db,
     # and Borg allows subclassing of shared parent state.

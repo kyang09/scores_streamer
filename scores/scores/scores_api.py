@@ -5,6 +5,7 @@ from .datatools.exampkg.exam import Exam
 
 
 class ScoresApi:
+    
     def __init__(self):
         self._stream_thread = None
         self._db = DataStore([("studentId", Student), ("exam", Exam)])
