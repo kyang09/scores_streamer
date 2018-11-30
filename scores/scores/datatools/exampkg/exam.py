@@ -1,6 +1,9 @@
-class Exam:
+from ..lookup_column import LookupColumn
+
+
+class Exam(LookupColumn):
 	
-	def __init__(self, exam_id, db_index):
+	def __init__(self, exam_id):
 		self.id = exam_id
-		self.db_index = db_index
+		self.db_index = []
 	
