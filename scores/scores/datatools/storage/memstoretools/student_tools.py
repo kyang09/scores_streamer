@@ -45,6 +45,12 @@ def get_results_average_by_studentid(id_col_name, student_id):
 
 
 def is_valid_student(row_dict):
+    """
+    Checks if a row in the datastore has valid student identifiers.
+
+    :param row_dict: Row in the datastore represented as a dictionary.
+    :returns: Boolean True or False.
+    """
     if ID_FIELD_NAME not in row_dict and row_dict[ID_FIELD_NAME] == None:
         return False
     if not isinstance(row_dict[ID_FIELD_NAME], str):

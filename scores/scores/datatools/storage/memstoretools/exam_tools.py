@@ -1,8 +1,4 @@
-"""
-
-Module for processing exam data.
-
-"""
+# Module for processing exam data.
 
 
 ID_FIELD_NAME = "exam"
@@ -26,6 +22,12 @@ def get_results_average_by_examid():
 
 
 def is_valid_exam(row_dict):
+     """
+    Checks if a row in the datastore has valid exam identifiers.
+
+    :param row_dict: Row in the datastore represented as a dictionary.
+    :returns: Boolean True or False.
+    """
     if "exam" not in row_dict or row_dict[ID_FIELD_NAME] == None:
         return False
     if not isinstance(row_dict[ID_FIELD_NAME], int):
@@ -34,6 +36,12 @@ def is_valid_exam(row_dict):
 
 
 def is_valid_exam_score(row_dict):
+    """
+    Checks if a row in the datastore has valid exam score identifiers.
+
+    :param row_dict: Row in the datastore represented as a dictionary.
+    :returns: Boolean True or False.
+    """
     if "score" not in row_dict or row_dict[SCORE_FIELD_NAME] == None:
         return False
     if not isinstance(row_dict[SCORE_FIELD_NAME], float):
