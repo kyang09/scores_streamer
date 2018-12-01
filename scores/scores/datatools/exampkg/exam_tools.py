@@ -28,7 +28,7 @@ def get_results_average_by_examid():
 def is_valid_exam(row_dict):
     if "exam" not in row_dict or row_dict[ID_FIELD_NAME] == None:
         return False
-    if not instanceof(row_dict[ID_FIELD_NAME], int):
+    if not isinstance(row_dict[ID_FIELD_NAME], int):
         return False
     return True
 
@@ -36,6 +36,6 @@ def is_valid_exam(row_dict):
 def is_valid_exam_score(row_dict):
     if "score" not in row_dict or row_dict[SCORE_FIELD_NAME] == None:
         return False
-    if not instanceof(row_dict[SCORE_FIELD_NAME], float):
+    if not isinstance(row_dict[SCORE_FIELD_NAME], float):
         return False
     return True

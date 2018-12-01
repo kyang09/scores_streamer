@@ -62,7 +62,7 @@ def main(argv):
                 print("Not a valid option!")
         elif user_input == "list students":
             print("list students")
-            api.list_students()
+            print(api.list_students())
         elif user_input == "list exams":
             print("exams")
             api.list_exams()

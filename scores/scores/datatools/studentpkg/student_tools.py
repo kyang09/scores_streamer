@@ -14,9 +14,10 @@ def get_students():
 
     :returns: Set of unqiue student IDs.
     """
-    student_ids = {}  # unique set of student IDs.
-    result = MemoryStore.get(Student)
-    for row_dict in result:
+    student_ids = set()  # unique set of student IDs.
+    memstore = MemoryStore()
+    results = memstore.get(Student)
+    for row_dict in results:
         if is_valid_student(row_dict) and \
           exam_tools.is_valid_exam(row_dict) and \
           exam_tools.is_valid_exam_score(row_dict):
@@ -44,4 +45,8 @@ def get_results_average_by_studentid(id_col_name, student_id):
 
 
 def is_valid_student(row_dict):
-    return ID_FIELD_NAME in row_dict and row_dict[ID_FIELD_NAME] != None
+    if ID_FIELD_NAME not in row_dict and row_dict[ID_FIELD_NAME] == None:
+        return False
+    if not isinstance(row_dict[ID_FIELD_NAME], str):
+        return False
+    return True
