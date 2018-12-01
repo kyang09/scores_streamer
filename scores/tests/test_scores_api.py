@@ -10,6 +10,7 @@ class TestScoresApi(unittest.TestCase):
 
     def setUp(self):
         self.api = ScoresApi()
+        self.max_wait_duration = 15 #  Duration is in seconds.
 
     def test_start(self):
         self.assertEqual(self.api._stream_thread, None)
@@ -29,27 +30,40 @@ class TestScoresApi(unittest.TestCase):
         self.api.stop()
         self.assertFalse(self.api._stream_thread.isAlive())
 
-    def test_list_students_streaming(self):
+    def test_list_students(self):
         """
         Test list_students from ScoresApi during streaming.
         Requires internet connection.
         """
-        print("WARNING: This test may take a while due to stream connection! ... ", end=' ', flush=True)
         self.assertEqual(self.api.list_students(), [])
         start_time = time.time()
         self.api.start()
-        list_is_empty = False
-        while len(self.api.list_students()) == 0:
-            if time.time() - start_time > 15:
+        duration_too_long = False
+        while len(self.api.list_students()) == 0 and not duration_too_long:
+            if time.time() - start_time > self.max_wait_duration:
+                list_is_empty = True # If it takes too long, fail the test.
+        self.assertFalse(duration_too_long) # Check student list is non-empty.
+
+    def test_list_exams(self):
+        self.assertEqual(self.api.list_exams(), [])
+        self.api.start()
+        duration_too_long = False
+        while len(self.api.list_exams()) == 0 and not duration_too_long:
+            if time.time() - start_time > self.max_wait_duration:
                 list_is_empty = True # If it takes too long, fail the test.
         self.assertFalse(list_is_empty) # Check student list is non-empty.
+
+    def test_student_results_and_average(self):
+        pass
+
+    def test_exam_results_and_average(self):
+        pass
 
     def test_list_students_streamstop(self):
         """
         Test list_students from ScoresApi after a stop.
         Requires internet connection. 
         """
-        print("WARNING: This test may take a while due to stream connection! ... ", end=' ', flush=True)
         self.assertEqual(self.api.list_students(), [])
         start_time = time.time()
         self.api.start()
@@ -59,18 +73,7 @@ class TestScoresApi(unittest.TestCase):
                 list_is_empty = True # If it takes too long, fail the test.
         self.assertFalse(list_is_empty) # Check student list is non-empty.
         self.api.stop()
-        time.sleep(5) #  Give extra time in case api does not stop.
-        # Check that list_students still works with stop() executed.
         self.assertTrue(len(self.api.list_students()) > 0)
-
-    def test_list_exams(self):
-        pass
-
-    def test_student_results_and_average(self):
-        pass
-
-    def test_exam_results_and_average(self):
-        pass
 
     def tearDown(self):
         self.api.stop()

@@ -9,8 +9,13 @@ SCORE_FIELD_NAME = "score"
 
 
 def get_exams():
+    exam_ids = set()
     memstore = MemoryStore()
-    results = memstore.get(Student)
+    results = memstore.get(Exam)
+    for row_dict in results:
+        if exam_tools.is_valid_exam(row_dict):
+            exam_ids.add(row_dict[ID_FIELD_NAME])
+    return list(exam_ids)
 
 def get_results_by_examid():
     pass
@@ -25,7 +30,7 @@ def get_results_average_by_examid():
 
 
 def is_valid_exam(row_dict):
-     """
+    """
     Checks if a row in the datastore has valid exam identifiers.
 
     :param row_dict: Row in the datastore represented as a dictionary.
