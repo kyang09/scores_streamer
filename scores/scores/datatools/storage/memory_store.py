@@ -34,6 +34,15 @@ class MemoryStore:
         """
         Stores data into the MemoryStore storage.
 
+        To avoid RuntimeError when there is an iteration happening
+        through _storage or _lookup_tbl size increase, we can possibly
+        look into using an Event flag or resource lock to switch between
+        storing stream data in buffer arrays and dictionaries. Once the
+        flag or lock allows storage into dictionaries again, make sure to
+        store all the data in the buffer arrays into the dictionaries.
+        For now, this function just copies the current .items() of
+        dictionaries into a list for iteration to avoid RuntimeError.
+
         :param data: String format of data.
         :param data_format: Format option of the data. JSON by default.
         """
