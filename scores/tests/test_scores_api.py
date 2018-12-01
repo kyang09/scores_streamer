@@ -78,4 +78,3 @@ class TestScoresApi(unittest.TestCase):
 
     def tearDown(self):
         self.api.stop()
-    
