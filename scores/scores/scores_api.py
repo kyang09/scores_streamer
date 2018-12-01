@@ -23,7 +23,7 @@ class ScoresApi:
 
     def stop(self):
         """Stops streaming and processing scores data."""
-        if self._stream_thread:
+        if self._stream_thread and self._stream_thread.isAlive():
             self._stream_thread.stop() # Set internal event flag to True to kill thread.
             self._stream_thread.join() # Make sure thread finishes before continuing with main thread.
     
