@@ -26,7 +26,6 @@ def main(argv):
         print("cancel : Go back to the main commands menu.")
         print("-----------------------------------------\n")
 
-    stream_thread = None
     api = ScoresApi()
 
     if len(argv) > 1:
@@ -36,7 +35,8 @@ def main(argv):
     
     cli_commands_message() # Prints out command options.
 
-    while not stream_thread or not stream_thread.kill.is_set():
+    prompt_user = True
+    while prompt_user:
         user_input = input("Please enter a command: ")
         if user_input == "list":
             cli_list_options_message() # Prints out options for list command.
@@ -86,7 +86,7 @@ def main(argv):
         elif user_input == "quit":
             print("quitting and stopping")
             api.stop() # Since we made our thread a daemon (to main thread), we may not need to call stop() here.
-            quit()
+            prompt_user = False
         else:
             print("Not a valid option!")
 
