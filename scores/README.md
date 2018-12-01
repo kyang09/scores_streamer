@@ -10,4 +10,4 @@ This is a simple package that provides an API to stream and process data from a 
 * `storage` is a subpackage of `datatools` containing the module `memory_store`.
 
 # Tests
-* Tests are included in the `test` directory/subpackage.
+* Tests are included in the `tests` directory.
