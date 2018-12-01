@@ -1,13 +1,16 @@
 # Module for processing exam data.
 
+from ...exam import Exam
+from ..memory_store import MemoryStore
+
 
 ID_FIELD_NAME = "exam"
 SCORE_FIELD_NAME = "score"
 
 
 def get_exams():
-    pass
-
+    memstore = MemoryStore()
+    results = memstore.get(Student)
 
 def get_results_by_examid():
     pass
