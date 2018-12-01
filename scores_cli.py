@@ -1,6 +1,7 @@
 from scores.scores.scores_api import ScoresApi # Change to scores.score_api after figuring out how to install package locally.
 import sys
 
+
 def main(argv):
     def cli_commands_message():
         print("\nWelcome to Scores!")
@@ -87,6 +88,7 @@ def main(argv):
             prompt_user = False
         else:
             print("Not a valid option!")
+
 
 if __name__ == "__main__":
     main(sys.argv)

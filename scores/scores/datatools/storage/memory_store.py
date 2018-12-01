@@ -178,4 +178,3 @@ class MemoryStore:
             for ndx in data_obj.get_db_indices():
                 result.append(self._storage[ndx])
         return result
-
