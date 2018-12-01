@@ -88,8 +88,11 @@ class MemoryStore:
         """
         result = []
         class_dict = self._lookup_tbl[lookup_class.__name__]
-        for col_name, data_id_dict in class_dict.items():
-            for data_id, data_obj in data_id_dict.items():
+
+        # We copy .items() to a list in order to avoid RuntimeError
+        # when dictionary changes in size during an iteration.
+        for col_name, data_id_dict in list(class_dict.items()):
+            for data_id, data_obj in list(data_id_dict.items()):
                 for ndx in data_obj.get_db_indices():
                     result.append(self._storage[ndx])
         return result
@@ -106,7 +109,10 @@ class MemoryStore:
         if col_name != "":
             class_dict = self._lookup_tbl[lookup_class.__name__]
             data_id_dict = class_dict[col_name]
-            for data_id, data_obj in data_id_dict.items():
+
+            # We copy .items() to a list in order to avoid RuntimeError
+            # when dictionary changes in size during an iteration.
+            for data_id, data_obj in list(data_id_dict.items()):
                 for ndx in data_obj.get_db_indices():
                     result.append(self._storage[ndx])
         return result
@@ -122,7 +128,10 @@ class MemoryStore:
         result = []
         if identifier != "":
             class_dict = self._lookup_tbl[lookup_class.__name__]
-            for col_name, data_id_dict in class_dict.items():
+
+            # We copy .items() to a list in order to avoid RuntimeError
+            # when dictionary changes in size during an iteration.
+            for col_name, data_id_dict in list(class_dict.items()):
                 data_obj = data_id_dict[identifier]
                 for ndx in data_obj.get_db_indices():
                     result.append(self._storage[ndx])

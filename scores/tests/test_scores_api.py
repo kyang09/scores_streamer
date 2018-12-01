@@ -46,6 +46,7 @@ class TestScoresApi(unittest.TestCase):
 
     def test_list_exams(self):
         self.assertEqual(self.api.list_exams(), [])
+        start_time = time.time()
         self.api.start()
         duration_too_long = False
         while len(self.api.list_exams()) == 0 and not duration_too_long:
