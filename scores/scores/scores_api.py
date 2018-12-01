@@ -41,7 +41,7 @@ class ScoresApi:
 
         :returns: Result list of all exams.
         """
-        pass
+        return exam_tools.get_exams()
 
     def student_results_and_average(self, student_id):
         """

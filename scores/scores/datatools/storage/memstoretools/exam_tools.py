@@ -13,7 +13,7 @@ def get_exams():
     memstore = MemoryStore()
     results = memstore.get(Exam)
     for row_dict in results:
-        if exam_tools.is_valid_exam(row_dict):
+        if is_valid_exam(row_dict):
             exam_ids.add(row_dict[ID_FIELD_NAME])
     return list(exam_ids)
 
