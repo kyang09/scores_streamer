@@ -77,9 +77,11 @@ def main(argv):
         elif user_input == "start":
             print("starting")
             api.start()
+            print("started")
         elif user_input == "stop":
             print("stopping")
             api.stop()
+            print("stopped")
         elif user_input == "menu":
             print("menu")
             cli_commands_message()
