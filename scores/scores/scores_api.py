@@ -1,9 +1,9 @@
 from .stream.score_stream_thread import ScoreStreamThread
 from .datatools.storage.memory_store import MemoryStore
-from .datatools.studentpkg.student import Student
-from .datatools.exampkg.exam import Exam
-from .datatools.studentpkg import student_tools
-from .datatools.exampkg import exam_tools
+from .datatools.student import Student
+from .datatools.exam import Exam
+from .datatools.storage.memstoretools import student_tools
+from .datatools.storage.memstoretools import exam_tools
 
 
 class ScoresApi:

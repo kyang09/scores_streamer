@@ -1,8 +1,8 @@
 # Module for processing student data.
 
-from ..storage.memory_store import MemoryStore
-from ..exampkg import exam_tools
-from .student import Student
+from ..memory_store import MemoryStore
+from . import exam_tools
+from ...student import Student
 
 
 ID_FIELD_NAME = "studentId"

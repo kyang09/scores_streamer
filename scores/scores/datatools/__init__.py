@@ -1,1 +1,1 @@
-__all__ = ['lookup_column']
+__all__ = ['lookup_column', 'student', 'exam']

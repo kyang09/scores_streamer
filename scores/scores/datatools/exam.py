@@ -1,4 +1,4 @@
-from ..lookup_column import LookupColumn
+from .lookup_column import LookupColumn
 
 
 class Exam(LookupColumn):
