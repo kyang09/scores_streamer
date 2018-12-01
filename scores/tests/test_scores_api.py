@@ -10,15 +10,15 @@ class TestScoresApi(unittest.TestCase):
       self.api = ScoresApi()
 
     def test_start(self):
-        self.assertEqual(api._stream_thread, None)
-        self.assertEqual(api._db._storage , [])
-        self.assertNotEqual(api._db._lookup_classes, [])
-        self.assertTrue(len(api._db._lookup_tbl) > 0)
+        self.assertEqual(self.api._stream_thread, None)
+        self.assertEqual(self.api._db._storage , [])
+        self.assertNotEqual(self.api._db._lookup_classes, [])
+        self.assertTrue(len(self.api._db._lookup_tbl) > 0)
         self.api.start()
-        self.assertNotEqual(api._stream_thread, None)
-        self.assertTrue(isinstance(api._stream_thread, ScoreStreamThread))
-        self.assertTrue(api._stream_thread.daemon)
-        self.assertTrue(api._stream_thread.isAlive())
+        self.assertNotEqual(self.api._stream_thread, None)
+        self.assertTrue(isinstance(self.api._stream_thread, ScoreStreamThread))
+        self.assertTrue(self.api._stream_thread.daemon)
+        self.assertTrue(self.api._stream_thread.isAlive())
 
     def test_stop(self):
         pass
