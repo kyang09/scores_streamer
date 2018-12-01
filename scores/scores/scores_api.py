@@ -31,7 +31,7 @@ class ScoresApi:
         """
         Lists all students that have received at least one test score.
 
-        :returns: Result of all students that have received at least one test score.
+        :returns: Result list of all students that have received at least one test score.
         """
         return student_tools.get_students()
 
@@ -39,7 +39,7 @@ class ScoresApi:
         """
         Lists all the exams that have been recorded.
 
-        :returns: Result of all exams.
+        :returns: Result list of all exams.
         """
         pass
 
