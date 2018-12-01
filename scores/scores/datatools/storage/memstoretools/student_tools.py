@@ -10,7 +10,7 @@ ID_FIELD_NAME = "studentId"
 
 def get_students():
     """
-    Get students with at least one exam score.
+    Gets students with at least one exam score.
 
     :returns: Set of unqiue student IDs.
     """

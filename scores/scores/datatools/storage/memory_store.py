@@ -17,6 +17,11 @@ class MemoryStore:
         return obj
     
     def init(self, lookup_classes=[]):
+        """
+        Initializes the MemoryStore.
+
+        :param lookup_classes: List of lookup classes for lookup table.
+        """
         self._storage = []
         self._lookup_tbl = {}
         self._lookup_classes = lookup_classes # List of tuples of (column name, class).
@@ -57,21 +62,16 @@ class MemoryStore:
                     data_identifier = data_dict[col_name]
                     data_class = lookup_tup[1] # Class of data column.
                     self._update_lookup_tbl(class_name, col_name, data_identifier, data_class)
-                    """if not isinstance(data_identifier, str):
-                        data_identifier = str(data_identifier)
-                    data_class = lookup_tup[1] # Class of data column.
-                    # The reason for using data_identifier as the value is because
-                    # the values of each column can represent unique objects.
-                    if data_identifier in self._lookup_tbl[class_name][col_name]:
-                        obj = self._lookup_tbl[class_name][col_name][data_identifier]
-                        obj.add_db_index(len(self._storage) - 1) # If -1 index, nothing is in storage.
-                        #self._lookup_tbl[class_name][col_name][data_identifier] = obj
-                    else:
-                        obj = data_class(data_identifier)
-                        obj.add_db_index(len(self._storage) - 1) # If -1 index, nothing is in storage.
-                        self._lookup_tbl[class_name][col_name][data_identifier] = data_class(data_identifier)"""
 
     def _update_lookup_tbl(self, class_name, col_name, data_identifier, data_class):
+        """
+        Updates _lookup_tbl by either creating or updating a lookup object.
+
+        :param class_name: The class name to look up in the _lookup_tbl.
+        :param col_name: Name of the field column in the datastore.
+        :param data_identifier: Value that represents the object at a column.
+        :param data_class: Class of the lookup data.
+        """
         if not isinstance(data_identifier, str):
             data_identifier = str(data_identifier)
         # The reason for using data_identifier as the value is because
@@ -87,7 +87,7 @@ class MemoryStore:
 
     def get(self, lookup_class, col_name="", identifier=""):
         """
-        Get MemoryStore data from storage based on class and class attributes.
+        Gets MemoryStore data from storage based on class and class attributes.
 
         :param lookup_class: The class to look up in the _lookup_tbl.
         :param col_name: Name of the field column in the datastore. Default is "".
@@ -106,7 +106,7 @@ class MemoryStore:
 
     def _get_all(self, lookup_class):
         """
-        Get all MemoryStore data from storage based on class.
+        Gets all MemoryStore data from storage based on class.
 
         :param lookup_class: The class to look up in the _lookup_tbl.
         :returns: List of dictionary results.
@@ -124,7 +124,7 @@ class MemoryStore:
 
     def _get_all_from_col(self, lookup_class, col_name=""):
         """
-        Get MemoryStore data from storage based on class and column name.
+        Gets MemoryStore data from storage based on class and column name.
 
         :param lookup_class: The class to look up in the _lookup_tbl.
         :param col_name: Name of the field column in the datastore. Default is "".
@@ -144,7 +144,7 @@ class MemoryStore:
 
     def _get_all_with_id(self, lookup_class, identifier=""):
         """
-        Get MemoryStore data from storage based on class and column name.
+        Gets MemoryStore data from storage based on class and column name.
 
         :param lookup_class: The class to look up in the _lookup_tbl.
         :param identifier: Value that represents the object at a column. Default is "".
@@ -164,7 +164,7 @@ class MemoryStore:
 
     def _get_all_with_col_id(self, lookup_class, col_name="", identifier=""):
         """
-        Get MemoryStore data from storage based on class, column name, and identifier.
+        Gets MemoryStore data from storage based on class, column name, and identifier.
 
         :param lookup_class: The class to look up in the _lookup_tbl.
         :param col_name: Name of the field column in the datastore. Default is "".
@@ -178,4 +178,3 @@ class MemoryStore:
             for ndx in data_obj.get_db_indices():
                 result.append(self._storage[ndx])
         return result
-
