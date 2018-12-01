@@ -17,6 +17,11 @@ class MemoryStore:
         return obj
     
     def init(self, lookup_classes=[]):
+        """
+        Initializes the MemoryStore.
+
+        :param lookup_classes: List of lookup classes for lookup table.
+        """
         self._storage = []
         self._lookup_tbl = {}
         self._lookup_classes = lookup_classes # List of tuples of (column name, class).
