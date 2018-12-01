@@ -1,45 +1,47 @@
 from .stream.score_stream_thread import ScoreStreamThread
 from .datatools.storage.memory_store import MemoryStore
-from .datatools.studentpkg.student import Student
-from .datatools.exampkg.exam import Exam
+from .datatools.student import Student
+from .datatools.exam import Exam
+from .datatools.storage.memstoretools import student_tools
+from .datatools.storage.memstoretools import exam_tools
 
 
 class ScoresApi:
-    
+
     def __init__(self):
         self._stream_thread = None
-        self._db = MemoryStore([("studentId", Student), ("exam", Exam)])
+        # Initializing MemoryStore should make it act like a singleton resource.
+        self._db = MemoryStore()
         self._url = "http://live-test-scores.herokuapp.com/scores"
+        self._db.init([("studentId", Student), ("exam", Exam)])
 
     def start(self):
         """Starts streaming and processing scores data."""
         self._stream_thread = ScoreStreamThread(self._db, self._url)
         self._stream_thread.daemon = True
         self._stream_thread.start()
-        print("started")
 
     def stop(self):
         """Stops streaming and processing scores data."""
         if self._stream_thread:
             self._stream_thread.stop() # Set internal event flag to True to kill thread.
             self._stream_thread.join() # Make sure thread finishes before continuing with main thread.
-        print("stopped")
     
     def list_students(self):
         """
         Lists all students that have received at least one test score.
 
-        :returns: Result of all students that have received at least one test score.
+        :returns: Result list of all students that have received at least one test score.
         """
-        pass
+        return student_tools.get_students()
 
     def list_exams(self):
         """
         Lists all the exams that have been recorded.
 
-        :returns: Result of all exams.
+        :returns: Result list of all exams.
         """
-        pass
+        return exam_tools.get_exams()
 
     def student_results_and_average(self, student_id):
         """

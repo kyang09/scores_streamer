@@ -26,7 +26,6 @@ def main(argv):
         print("cancel : Go back to the main commands menu.")
         print("-----------------------------------------\n")
 
-    stream_thread = None
     api = ScoresApi()
 
     if len(argv) > 1:
@@ -36,57 +35,56 @@ def main(argv):
     
     cli_commands_message() # Prints out command options.
 
-    while not stream_thread or not stream_thread.kill.is_set():
+    prompt_user = True
+    while prompt_user:
         user_input = input("Please enter a command: ")
         if user_input == "list":
             cli_list_options_message() # Prints out options for list command.
             sub_user_input = input("Choose what to list: ")
             if sub_user_input == "students":
-                print("list students")
-                api.list_students()
+                print(api.list_students())
             elif sub_user_input == "exams":
-                print("exams")
-                api.list_exams()
+                print(api.list_exams())
             elif "student" in sub_user_input:
                 print("student results")
                 student_id = 0 # Replace with actual student id from input.
-                api.student_results_and_average(student_id)
+                print(api.student_results_and_average(student_id))
             elif "exam" in sub_user_input:
                 print("exam results")
                 exam_id = 0 # Replace with actual exam id from input.
-                api.exam_results_and_average(exam_id)
+                print(api.exam_results_and_average(exam_id))
             elif sub_user_input == "cancel":
                 print("cancelled")
                 cli_commands_message()
             else:
                 print("Not a valid option!")
         elif user_input == "list students":
-            print("list students")
-            api.list_students()
+            print(api.list_students())
         elif user_input == "list exams":
-            print("exams")
-            api.list_exams()
+            print(api.list_exams())
         elif "list student" in user_input:
             print("student results")
             student_id = 0 # Replace with actual student id from input.
-            api.student_results_and_average(student_id)
+            print(api.student_results_and_average(student_id))
         elif "list exam" in user_input:
             print("exam results")
             exam_id = 0 # Replace with actual exam id from input.
-            api.exam_results_and_average(exam_id)
+            print(api.exam_results_and_average(exam_id))
         elif user_input == "start":
             print("starting")
             api.start()
+            print("started")
         elif user_input == "stop":
             print("stopping")
             api.stop()
+            print("stopped")
         elif user_input == "menu":
             print("menu")
             cli_commands_message()
         elif user_input == "quit":
             print("quitting and stopping")
             api.stop() # Since we made our thread a daemon (to main thread), we may not need to call stop() here.
-            quit()
+            prompt_user = False
         else:
             print("Not a valid option!")
 
