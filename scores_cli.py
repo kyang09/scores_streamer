@@ -42,38 +42,34 @@ def main(argv):
             cli_list_options_message() # Prints out options for list command.
             sub_user_input = input("Choose what to list: ")
             if sub_user_input == "students":
-                print("list students")
-                api.list_students()
+                print(api.list_students())
             elif sub_user_input == "exams":
-                print("exams")
-                api.list_exams()
+                print(api.list_exams())
             elif "student" in sub_user_input:
                 print("student results")
                 student_id = 0 # Replace with actual student id from input.
-                api.student_results_and_average(student_id)
+                print(api.student_results_and_average(student_id))
             elif "exam" in sub_user_input:
                 print("exam results")
                 exam_id = 0 # Replace with actual exam id from input.
-                api.exam_results_and_average(exam_id)
+                print(api.exam_results_and_average(exam_id))
             elif sub_user_input == "cancel":
                 print("cancelled")
                 cli_commands_message()
             else:
                 print("Not a valid option!")
         elif user_input == "list students":
-            print("list students")
             print(api.list_students())
         elif user_input == "list exams":
-            print("exams")
-            api.list_exams()
+            print(api.list_exams())
         elif "list student" in user_input:
             print("student results")
             student_id = 0 # Replace with actual student id from input.
-            api.student_results_and_average(student_id)
+            print(api.student_results_and_average(student_id))
         elif "list exam" in user_input:
             print("exam results")
             exam_id = 0 # Replace with actual exam id from input.
-            api.exam_results_and_average(exam_id)
+            print(api.exam_results_and_average(exam_id))
         elif user_input == "start":
             print("starting")
             api.start()
