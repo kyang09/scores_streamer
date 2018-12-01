@@ -69,7 +69,7 @@ class TestScoresApi(unittest.TestCase):
         start_time = time.time()
         self.api.start()
         duration_too_long = False
-        while len(self.api.list_students()) == 0:
+        while len(self.api.list_students()) == 0 and not duration_too_long:
             if time.time() - start_time > 15:
                 duration_too_long = True # If it takes too long, fail the test.
         self.assertFalse(duration_too_long) # Check student list is non-empty.

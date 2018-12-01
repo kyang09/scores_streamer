@@ -55,7 +55,9 @@ class MemoryStore:
                 class_name = lookup_tup[1].__name__
                 if col_name in data_dict:
                     data_identifier = data_dict[col_name]
-                    if not isinstance(data_identifier, str):
+                    data_class = lookup_tup[1] # Class of data column.
+                    self._update_lookup_tbl(class_name, col_name, data_identifier, data_class)
+                    """if not isinstance(data_identifier, str):
                         data_identifier = str(data_identifier)
                     data_class = lookup_tup[1] # Class of data column.
                     # The reason for using data_identifier as the value is because
@@ -67,7 +69,21 @@ class MemoryStore:
                     else:
                         obj = data_class(data_identifier)
                         obj.add_db_index(len(self._storage) - 1) # If -1 index, nothing is in storage.
-                        self._lookup_tbl[class_name][col_name][data_identifier] = data_class(data_identifier)
+                        self._lookup_tbl[class_name][col_name][data_identifier] = data_class(data_identifier)"""
+
+    def _update_lookup_tbl(self, class_name, col_name, data_identifier, data_class):
+        if not isinstance(data_identifier, str):
+            data_identifier = str(data_identifier)
+        # The reason for using data_identifier as the value is because
+        # the values of each column can represent unique objects.
+        if data_identifier in self._lookup_tbl[class_name][col_name]:
+            obj = self._lookup_tbl[class_name][col_name][data_identifier]
+            obj.add_db_index(len(self._storage) - 1) # If -1 index, nothing is in storage.
+            #self._lookup_tbl[class_name][col_name][data_identifier] = obj
+        else:
+            obj = data_class(data_identifier)
+            obj.add_db_index(len(self._storage) - 1) # If -1 index, nothing is in storage.
+            self._lookup_tbl[class_name][col_name][data_identifier] = data_class(data_identifier)
 
     def get(self, lookup_class, col_name="", identifier=""):
         """
