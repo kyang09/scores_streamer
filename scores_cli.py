@@ -2,6 +2,42 @@ from scores.scores.scores_api import ScoresApi # Change to scores.score_api afte
 import sys
 
 
+def print_list_students(api):
+    results = api.list_students()
+    if len(results) == 0:
+        print("No results!")
+    else:
+        print(results)
+
+
+def print_list_exams(api):
+    results = api.list_exams()
+    if len(results) == 0:
+        print("No results!")
+    else:
+        print(results)
+
+
+def print_list_avg_student(api, sid):
+    result_tup = api.student_results_and_average(sid)
+    if len(result_tup[0]) == 0:
+        print("No results!")
+    if result_tup[1] == -1.0:
+        print("No average!")
+    if len(result_tup[0]) > 0 and result_tup[1] > -1.0:
+        print(result_tup)
+
+
+def print_list_avg_exams(api, eid):
+    result_tup = api.exam_results_and_average(eid)
+    if len(result_tup[0]) == 0:
+        print("No results!")
+    if result_tup[1] == -1.0:
+        print("No average!")
+    if len(result_tup[0]) > 0 and result_tup[1] > -1.0:
+        print(result_tup)
+
+
 def main(argv):
     def cli_commands_message():
         print("\nWelcome to Scores!")
@@ -43,34 +79,31 @@ def main(argv):
             cli_list_options_message() # Prints out options for list command.
             sub_user_input = input("Choose what to list: ")
             if sub_user_input == "students":
-                print(api.list_students())
+                print_list_students(api)
             elif sub_user_input == "exams":
-                print(api.list_exams())
+                print_list_exams(api)
             elif "student" in sub_user_input:
-                print("student results")
-                student_id = user_input.split()[-1]
-                print(api.student_results_and_average(student_id))
+                student_id = sub_user_input.split()[-1]
+                print(student_id)
+                print_list_avg_student(api, student_id)
             elif "exam" in sub_user_input:
-                print("exam results")
-                exam_id = user_input.split()[-1]
-                print(api.exam_results_and_average(exam_id))
+                exam_id = sub_user_input.split()[-1]
+                print(exam_id)
+                print_list_avg_exams(api, exam_id)
             elif sub_user_input == "cancel":
-                print("cancelled")
                 cli_commands_message()
             else:
                 print("Not a valid option!")
         elif user_input == "list students":
-            print(api.list_students())
+            print_list_students(api)
         elif user_input == "list exams":
-            print(api.list_exams())
+            print_list_exams(api)
         elif "list student" in user_input:
-            print("student results")
             student_id = user_input.split()[-1]
-            print(api.student_results_and_average(student_id))
+            print_list_avg_student(api, student_id)
         elif "list exam" in user_input:
-            print("exam results")
             exam_id = user_input.split()[-1]
-            print(api.exam_results_and_average(exam_id))
+            print_list_avg_exams(api, exam_id)
         elif user_input == "start":
             print("starting")
             api.start()

@@ -34,6 +34,8 @@ class ScoresApi:
         """
         Lists all students that have received at least one test score.
 
+        Results of [] means there were no results.
+
         :returns: Result list of all students that have received at least one test score.
         """
         return student_tools.get_students()
@@ -41,6 +43,8 @@ class ScoresApi:
     def list_exams(self):
         """
         Lists all the exams that have been recorded.
+
+        Results of [] means there were no results.
 
         :returns: Result list of all exams.
         """
@@ -51,6 +55,9 @@ class ScoresApi:
         Lists the test results for the specified student,
         and provides the student's average score across all exams.
 
+        Results of [] means there were no results.
+        An average of -1.0 means there were no scores to average.
+
         :param student_id: str ID of student (given as a string).
         :returns: Tuple of (results, average)
         """
@@ -60,6 +67,9 @@ class ScoresApi:
         """
         Lists all the results for the specified exam, and 
         provides the average score across all students.
+
+        Results of [] means there were no results.
+        An average of -1.0 means there were no scores to average.
 
         :param exam_id: int ID of student (given as a string).
         :returns: Tuple of (results, average)
