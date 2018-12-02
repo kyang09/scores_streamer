@@ -13,7 +13,10 @@ class ScoresApi:
         # Initializing MemoryStore should make it act like a singleton resource.
         self._db = MemoryStore()
         self._url = "http://live-test-scores.herokuapp.com/scores"
-        self._db.init([("studentId", Student), ("exam", Exam)])
+        self._db.init([
+            (student_tools.ID_FIELD_NAME, Student),
+            (exam_tools.ID_FIELD_NAME, Exam)
+        ])
 
     def start(self):
         """Starts streaming and processing scores data."""
@@ -31,6 +34,8 @@ class ScoresApi:
         """
         Lists all students that have received at least one test score.
 
+        Results of [] means there were no results.
+
         :returns: Result list of all students that have received at least one test score.
         """
         return student_tools.get_students()
@@ -39,26 +44,34 @@ class ScoresApi:
         """
         Lists all the exams that have been recorded.
 
+        Results of [] means there were no results.
+
         :returns: Result list of all exams.
         """
         return exam_tools.get_exams()
 
-    def student_results_and_average(self, student_id):
+    def student_results_and_average(self, student_id=""):
         """
         Lists the test results for the specified student,
         and provides the student's average score across all exams.
 
+        Results of [] means there were no results.
+        An average of -1.0 means there were no scores to average.
+
         :param student_id: str ID of student (given as a string).
         :returns: Tuple of (results, average)
         """
-        pass
+        return student_tools.get_results_average_by_studentid(student_id)
 
-    def exam_results_and_average(self, exam_id):
+    def exam_results_and_average(self, exam_id=""):
         """
         Lists all the results for the specified exam, and 
         provides the average score across all students.
 
+        Results of [] means there were no results.
+        An average of -1.0 means there were no scores to average.
+
         :param exam_id: int ID of student (given as a string).
         :returns: Tuple of (results, average)
         """
-        pass
+        return exam_tools.get_results_average_by_examid(exam_id)

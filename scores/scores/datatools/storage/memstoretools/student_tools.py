@@ -10,9 +10,9 @@ ID_FIELD_NAME = "studentId"
 
 def get_students():
     """
-    Gets students with at least one exam score.
+    Gets the results of students with at least one exam score.
 
-    :returns: Set of unqiue student IDs.
+    :returns: String List of student IDs.
     """
     student_ids = set()  # unique set of student IDs.
     memstore = MemoryStore()
@@ -25,23 +25,50 @@ def get_students():
     return list(student_ids)
 
 
-def get_results_by_studentid(lookup_class, id_col_name, student_id):
-    return MemoryStore.get(Student, id_col_name, student_id)
+def get_results_by_studentid(student_id):
+    """
+    Gets the results of student of student_id.
+
+    :param student_id: ID of student.
+    :returns: String List of results.
+    """
+    memstore = MemoryStore()
+    return memstore.get(Student, ID_FIELD_NAME, student_id)
 
 
-def get_average_by_studentid(id_col_name, student_id):
+def get_average_by_studentid(student_id):
+    """
+    Gets the test score average of student of student_id.
+
+    :param student_id: ID of student.
+    :returns: Float value of average.
+    """
     average = -1.0 # Average of -1.0 means student doesn't have any scores.
     scores = []
-    results = MemoryStore.get(Student, id_col_name, student_id)
+    memstore = MemoryStore()
+    results = memstore.get(Student, ID_FIELD_NAME, student_id)
     for row_dict in results:
         scores.append(row_dict["score"])  # score is a decimal value.
     average = sum(scores)/len(scores)
     return average
 
 
-def get_results_average_by_studentid(id_col_name, student_id):
-    # TODO: Finish implementing.
-    return MemoryStore.get(Student)
+def get_results_average_by_studentid(student_id):
+    """
+    Gets test results and test score average of student of student_id.
+
+    :param student_id: ID of student.
+    :returns: Tuple of (string results list, float average)
+    """
+    average = -1.0 # Average of -1.0 means student doesn't have any scores.
+    scores = []
+    memstore = MemoryStore()
+    results = memstore.get(Student, ID_FIELD_NAME, student_id)
+    for row_dict in results:
+        scores.append(row_dict["score"])  # score is a decimal value.
+    if len(scores) > 0:
+        average = sum(scores)/len(scores)
+    return (results, average)
 
 
 def is_valid_student(row_dict):
