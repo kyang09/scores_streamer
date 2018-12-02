@@ -94,13 +94,17 @@ class MemoryStore:
         :param identifier: Value that represents the object at a column. Default is "".
         :returns: List of dictionary results.
         """
+        if lookup_class.__name__ not in self._lookup_tbl:
+            return []
+
         if identifier == "":
             if col_name == "":
                 return self._get_all(lookup_class)
             else:
-                return self._get_all_with_col_id(lookup_class, col_name)
+                return self._get_all_with_col(lookup_class, col_name)
         elif col_name == "":
             return self._get_all_with_id(lookup_class, identifier)
+
         # Get specific results based on col_name and identifier.
         return self._get_all_with_col_id(lookup_class, col_name, identifier)
 
@@ -122,7 +126,7 @@ class MemoryStore:
                     result.append(self._storage[ndx])
         return result
 
-    def _get_all_from_col(self, lookup_class, col_name=""):
+    def _get_all_with_col(self, lookup_class, col_name=""):
         """
         Gets MemoryStore data from storage based on class and column name.
 
@@ -130,9 +134,12 @@ class MemoryStore:
         :param col_name: Name of the field column in the datastore. Default is "".
         :returns: List of dictionary results.
         """
+        class_dict = self._lookup_tbl[lookup_class.__name__]
+        if col_name not in class_dict:
+            return []
+        
         result = []
         if col_name != "":
-            class_dict = self._lookup_tbl[lookup_class.__name__]
             data_id_dict = class_dict[col_name]
 
             # We copy .items() to a list in order to avoid RuntimeError
@@ -157,9 +164,10 @@ class MemoryStore:
             # We copy .items() to a list in order to avoid RuntimeError
             # when dictionary changes in size during an iteration.
             for col_name, data_id_dict in list(class_dict.items()):
-                data_obj = data_id_dict[identifier]
-                for ndx in data_obj.get_db_indices():
-                    result.append(self._storage[ndx])
+                if identifier in data_id_dict:
+                    data_obj = data_id_dict[identifier]
+                    for ndx in data_obj.get_db_indices():
+                        result.append(self._storage[ndx])
             return result
 
     def _get_all_with_col_id(self, lookup_class, col_name="", identifier=""):
@@ -171,9 +179,12 @@ class MemoryStore:
         :param identifier: Value that represents the object at a column. Default is "".
         :returns: List of dictionary results.
         """
+        class_dict = self._lookup_tbl[lookup_class.__name__]
+        if col_name not in class_dict or identifier not in class_dict[col_name]:
+            return []
+
         result = []
         if col_name != "" and identifier != "":
-            class_dict = self._lookup_tbl[lookup_class.__name__]
             data_obj = class_dict[col_name][identifier]
             for ndx in data_obj.get_db_indices():
                 result.append(self._storage[ndx])

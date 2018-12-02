@@ -73,6 +73,7 @@ class TestScoresApi(unittest.TestCase):
 
     def test_exam_results_and_average(self):
         self.assertEqual(self.api.exam_results_and_average(""), ([], -1.0))
+        start_time = time.time()
         self.api.start()
         duration_too_long = False
         while len(self.api.list_exams()) == 0 and not duration_too_long:

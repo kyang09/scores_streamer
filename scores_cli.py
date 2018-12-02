@@ -48,11 +48,11 @@ def main(argv):
                 print(api.list_exams())
             elif "student" in sub_user_input:
                 print("student results")
-                student_id = 0 # Replace with actual student id from input.
+                student_id = user_input.split()[-1]
                 print(api.student_results_and_average(student_id))
             elif "exam" in sub_user_input:
                 print("exam results")
-                exam_id = 0 # Replace with actual exam id from input.
+                exam_id = user_input.split()[-1]
                 print(api.exam_results_and_average(exam_id))
             elif sub_user_input == "cancel":
                 print("cancelled")
@@ -65,11 +65,11 @@ def main(argv):
             print(api.list_exams())
         elif "list student" in user_input:
             print("student results")
-            student_id = 0 # Replace with actual student id from input.
+            student_id = user_input.split()[-1]
             print(api.student_results_and_average(student_id))
         elif "list exam" in user_input:
             print("exam results")
-            exam_id = 0 # Replace with actual exam id from input.
+            exam_id = user_input.split()[-1]
             print(api.exam_results_and_average(exam_id))
         elif user_input == "start":
             print("starting")
