@@ -98,7 +98,7 @@ class MemoryStore:
             if col_name == "":
                 return self._get_all(lookup_class)
             else:
-                return self._get_all_with_col(lookup_class, col_name)
+                return self._get_all_with_col_id(lookup_class, col_name)
         elif col_name == "":
             return self._get_all_with_id(lookup_class, identifier)
         # Get specific results based on col_name and identifier.

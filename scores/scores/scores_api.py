@@ -43,7 +43,7 @@ class ScoresApi:
         """
         return exam_tools.get_exams()
 
-    def student_results_and_average(self, student_id):
+    def student_results_and_average(self, student_id=""):
         """
         Lists the test results for the specified student,
         and provides the student's average score across all exams.
@@ -51,9 +51,9 @@ class ScoresApi:
         :param student_id: str ID of student (given as a string).
         :returns: Tuple of (results, average)
         """
-        pass
+        return student_tools.get_results_average_by_studentid(student_id)
 
-    def exam_results_and_average(self, exam_id):
+    def exam_results_and_average(self, exam_id=""):
         """
         Lists all the results for the specified exam, and 
         provides the average score across all students.
@@ -61,4 +61,4 @@ class ScoresApi:
         :param exam_id: int ID of student (given as a string).
         :returns: Tuple of (results, average)
         """
-        pass
+        return exam_tools.get_results_average_by_examid(exam_id)

@@ -14,7 +14,7 @@ suite.addTests(loader.loadTestsFromModule(test_scores_api))
 runner = unittest.TextTestRunner(verbosity=2)
 
 # Warning about possible long testing wait time.
-print("\n----------------------------------------------------------------------")
+print("\n======================================================================")
 print("WARNING: These tests may take a while due to data streaming!")
 print("----------------------------------------------------------------------\n")
 

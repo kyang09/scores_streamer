@@ -25,7 +25,7 @@ def get_average_by_examid():
     pass
 
 
-def get_results_average_by_examid():
+def get_results_average_by_examid(exam_id):
     pass
 
 
