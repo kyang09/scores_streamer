@@ -13,7 +13,10 @@ class ScoresApi:
         # Initializing MemoryStore should make it act like a singleton resource.
         self._db = MemoryStore()
         self._url = "http://live-test-scores.herokuapp.com/scores"
-        self._db.init([("studentId", Student), ("exam", Exam)])
+        self._db.init([
+            (student_tools.ID_FIELD_NAME, Student),
+            (exam_tools.ID_FIELD_NAME, Exam)
+        ])
 
     def start(self):
         """Starts streaming and processing scores data."""
