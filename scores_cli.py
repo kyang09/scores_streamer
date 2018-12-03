@@ -42,12 +42,12 @@ def print_list_results(results):
     for res in results:
         print(res)
 
+
 def print_avg_tuple_results(results):
     if isinstance(results[0], list) and isinstance(results[1], float):
         for res in results[0]:
             print(res)
         print("Average score: " + str(results[1]))
-
 
 
 def main(argv):
