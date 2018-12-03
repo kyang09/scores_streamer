@@ -1,8 +1,8 @@
 class LookupColumn:
-    
+
     def __init__(self, identifier):
-        self.id = identifier # String identifier of the lookup column.
-        self._db_indices = [] # Indices in the datastore related to the lookup.
+        self.id = identifier  # String identifier of the lookup column.
+        self._db_indices = []  # Indices to the datastore.
 
     def add_db_index(self, index):
         """
