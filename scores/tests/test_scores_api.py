@@ -10,11 +10,11 @@ class TestScoresApi(unittest.TestCase):
 
     def setUp(self):
         self.api = ScoresApi()
-        self.max_wait_duration = 15 #  Duration is in seconds.
+        self.max_wait_duration = 15  # Duration is in seconds.
 
     def test_start(self):
         self.assertEqual(self.api._stream_thread, None)
-        self.assertEqual(self.api._db._storage , [])
+        self.assertEqual(self.api._db._storage, [])
         self.assertNotEqual(self.api._db._lookup_classes, [])
         self.assertTrue(len(self.api._db._lookup_tbl) > 0)
         self.api.start()
@@ -41,7 +41,7 @@ class TestScoresApi(unittest.TestCase):
         duration_too_long = False
         while len(self.api.list_students()) == 0 and not duration_too_long:
             if time.time() - start_time > self.max_wait_duration:
-                duration_too_long = True # If it takes too long, fail the test.
+                duration_too_long = True  # If it takes too long, fail.
         self.assertFalse(duration_too_long)
 
     def test_list_exams(self):
@@ -51,7 +51,7 @@ class TestScoresApi(unittest.TestCase):
         duration_too_long = False
         while len(self.api.list_exams()) == 0 and not duration_too_long:
             if time.time() - start_time > self.max_wait_duration:
-                duration_too_long = True # If it takes too long, fail the test.
+                duration_too_long = True  # If it takes too long, fail.
         self.assertFalse(duration_too_long)
 
     def test_student_results_and_average(self):
@@ -61,7 +61,7 @@ class TestScoresApi(unittest.TestCase):
         duration_too_long = False
         while len(self.api.list_students()) == 0 and not duration_too_long:
             if time.time() - start_time > self.max_wait_duration:
-                duration_too_long = True # If it takes too long, fail the test.
+                duration_too_long = True  # If it takes too long, fail.
         self.assertFalse(duration_too_long)
         students = self.api.list_students()
         for s in students:
@@ -78,7 +78,7 @@ class TestScoresApi(unittest.TestCase):
         duration_too_long = False
         while len(self.api.list_exams()) == 0 and not duration_too_long:
             if time.time() - start_time > self.max_wait_duration:
-                duration_too_long = True # If it takes too long, fail the test.
+                duration_too_long = True  # If it takes too long, fail.
         self.assertFalse(duration_too_long)
         exams = self.api.list_exams()
         for e in exams:
@@ -88,11 +88,10 @@ class TestScoresApi(unittest.TestCase):
             # Check that scores are used to get an average.
             self.assertTrue(result[1] != -1.0)
 
-
     def test_list_students_streamstop(self):
         """
         Test list_students from ScoresApi after a stop.
-        Requires internet connection. 
+        Requires internet connection.
         """
         self.assertEqual(self.api.list_students(), [])
         start_time = time.time()
@@ -100,8 +99,8 @@ class TestScoresApi(unittest.TestCase):
         duration_too_long = False
         while len(self.api.list_students()) == 0 and not duration_too_long:
             if time.time() - start_time > 15:
-                duration_too_long = True # If it takes too long, fail the test.
-        self.assertFalse(duration_too_long) # Check student list is non-empty.
+                duration_too_long = True  # If it takes too long, fail.
+        self.assertFalse(duration_too_long)  # Check student list is non-empty.
         self.api.stop()
         self.assertTrue(len(self.api.list_students()) > 0)
 

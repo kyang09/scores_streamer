@@ -15,6 +15,6 @@ class TestExam(unittest.TestCase):
         self.assertTrue(len(self.exam.get_db_indices()) == 1)
         self.exam.add_db_index(2)
         self.assertTrue(len(self.exam.get_db_indices()) == 2)
-    
+
     def tearDown(self):
         del self.exam

@@ -45,7 +45,7 @@ class TestMemoryStore(unittest.TestCase):
             (student_tools.ID_FIELD_NAME, Student),
             (exam_tools.ID_FIELD_NAME, Exam)
         ])
-        data = '{"studentId":"some_student_id","exam":999,"score":0.6488820932488337}'
+        data = '{"studentId":"some_student_id","exam":999,"score":0.648}'
         self.assertTrue(len(self.db._storage) == 0)
         self.db.store(data)
         self.assertTrue(len(self.db._storage) == 1)
@@ -55,10 +55,10 @@ class TestMemoryStore(unittest.TestCase):
         self.assertTrue(len(exams_from_db) == 1)
         self.assertTrue(students_from_db[0]["studentId"] == "some_student_id")
         self.assertTrue(exams_from_db[0]["exam"] == 999)
-        self.assertTrue(students_from_db[0]["score"] == 0.6488820932488337)
-        self.assertTrue(exams_from_db[0]["score"] == 0.6488820932488337)
+        self.assertTrue(students_from_db[0]["score"] == 0.648)
+        self.assertTrue(exams_from_db[0]["score"] == 0.648)
 
-        data2 = '{"studentId":"some_student_id2","exam":123,"score":0.1488820932488337}'
+        data2 = '{"studentId":"some_student_id2","exam":123,"score":0.148}'
         self.assertTrue(len(self.db._storage) == 1)
         self.db.store(data2)
         self.assertTrue(len(self.db._storage) == 2)
@@ -68,13 +68,13 @@ class TestMemoryStore(unittest.TestCase):
         self.assertTrue(len(exams_from_db) == 2)
         self.assertTrue(students_from_db[0]["studentId"] == "some_student_id")
         self.assertTrue(exams_from_db[0]["exam"] == 999)
-        self.assertTrue(students_from_db[0]["score"] == 0.6488820932488337)
-        self.assertTrue(exams_from_db[0]["score"] == 0.6488820932488337)
+        self.assertTrue(students_from_db[0]["score"] == 0.648)
+        self.assertTrue(exams_from_db[0]["score"] == 0.648)
         self.assertTrue(students_from_db[1]["studentId"] == "some_student_id2")
         self.assertTrue(exams_from_db[1]["exam"] == 123)
-        self.assertTrue(students_from_db[1]["score"] == 0.1488820932488337)
-        self.assertTrue(exams_from_db[1]["score"] == 0.1488820932488337)
-        
+        self.assertTrue(students_from_db[1]["score"] == 0.148)
+        self.assertTrue(exams_from_db[1]["score"] == 0.148)
+
     def test_db_get_specific(self):
         self.db.init([
             (student_tools.ID_FIELD_NAME, Student),
@@ -84,7 +84,8 @@ class TestMemoryStore(unittest.TestCase):
         self.assertTrue(len(self.db._storage) == 0)
         self.db.store(data)
         self.assertTrue(len(self.db._storage) == 1)
-        student_results= self.db.get(Student, student_tools.ID_FIELD_NAME, "some_student_id")
+        student_results = self.db.get(Student, student_tools.ID_FIELD_NAME,
+                                      "some_student_id")
         self.assertTrue(len(student_results) == 1)
         exam_results = self.db.get(Exam, exam_tools.ID_FIELD_NAME, "999")
         self.assertTrue(len(exam_results) == 1)
@@ -94,7 +95,7 @@ class TestMemoryStore(unittest.TestCase):
         self.assertTrue(exam_results[0]["studentId"] == "some_student_id")
         self.assertTrue(exam_results[0]["exam"] == 999)
         self.assertTrue(exam_results[0]["score"] == 0.132)
-    
+
     def tearDown(self):
         del self.db._storage
         del self.db._lookup_tbl

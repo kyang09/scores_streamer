@@ -19,19 +19,19 @@ class TestStudentTools(unittest.TestCase):
 
     def test_get_students(self):
         self.assertTrue(len(student_tools.get_students()) == 0)
-        data = '{"exam" : 999, "studentId": "some_student_id", "score": 0.132}'
-        data2 = '{"exam" : 999, "studentId": "some_student_id2", "score": 0.523}'
+        data = '{"exam" : 999, "studentId": "id", "score": 0.132}'
+        data2 = '{"exam" : 999, "studentId": "id2", "score": 0.523}'
         self.db.store(data)
         self.db.store(data2)
         self.assertTrue(len(student_tools.get_students()) > 0)
         students = student_tools.get_students()
         students.sort()
-        self.assertTrue(["some_student_id", "some_student_id2"] == students)
+        self.assertTrue(["id", "id2"] == students)
 
     def test_get_results_by_studentid(self):
         results = student_tools.get_results_by_studentid("some_student_id")
         self.assertTrue(len(results) == 0)
-        data = '{"studentId":"some_student_id","exam":999,"score":0.6488820932488337}'
+        data = '{"studentId":"some_student_id","exam":999,"score":0.648}'
         self.db.store(data)
         results = student_tools.get_results_by_studentid("some_student_id")
         self.assertTrue(len(results) > 0)
@@ -64,13 +64,13 @@ class TestStudentTools(unittest.TestCase):
         self.assertTrue(average == (0.123 + 0.421)/2.0)
 
     def test_is_valid_student(self):
-        row_dict = {"" : None}
+        row_dict = {"": None}
         is_valid = student_tools.is_valid_student(row_dict)
         self.assertFalse(is_valid)
-        row_dict = {student_tools.ID_FIELD_NAME : None}
+        row_dict = {student_tools.ID_FIELD_NAME: None}
         is_valid = student_tools.is_valid_student(row_dict)
         self.assertFalse(is_valid)
-        row_dict = {student_tools.ID_FIELD_NAME : "some_student_id"}
+        row_dict = {student_tools.ID_FIELD_NAME: "some_student_id"}
         is_valid = student_tools.is_valid_student(row_dict)
         self.assertTrue(is_valid)
 

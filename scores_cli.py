@@ -57,6 +57,7 @@ def main(argv):
         print("-----------------------------------------")
         print("start : Start collecting scores data.")
         print("stop : Stop collecting scores data.")
+        print("list : Show list options.")
         print("list students : Lists all students that have received " +
               "at least one test score.")
         print("list student <student_id> : Lists the test results for the " +

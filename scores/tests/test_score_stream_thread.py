@@ -8,6 +8,7 @@ from scores.datatools.exam import Exam
 from scores.datatools.storage.memstoretools import student_tools
 from scores.datatools.storage.memstoretools import exam_tools
 
+
 class TestScoreStreamThread(unittest.TestCase):
     """Tests for ScoreStreamThread."""
 
@@ -19,7 +20,7 @@ class TestScoreStreamThread(unittest.TestCase):
         ])
         self.url = "http://live-test-scores.herokuapp.com/scores"
         self.stream_thread = ScoreStreamThread(self.db, self.url)
-        self.max_wait_duration = 15 #  Duration is in seconds.
+        self.max_wait_duration = 15  # Duration is in seconds.
 
     def test_thread_start(self):
         self.assertFalse(self.stream_thread.isAlive())
@@ -35,7 +36,7 @@ class TestScoreStreamThread(unittest.TestCase):
         duration_too_long = False
         while self.stream_thread.isAlive() and not duration_too_long:
             if time.time() - start_time > self.max_wait_duration:
-                duration_too_long = True # If it takes too long, fail the test.
+                duration_too_long = True  # If it takes too long, fail.
         self.assertFalse(duration_too_long)
         self.assertFalse(self.stream_thread.isAlive())
 
@@ -45,7 +46,7 @@ class TestScoreStreamThread(unittest.TestCase):
         duration_too_long = False
         while len(self.db._storage) == 0 and not duration_too_long:
             if time.time() - start_time > self.max_wait_duration:
-                duration_too_long = True # If it takes too long, fail the test.
+                duration_too_long = True  # If it takes too long, fail.
         self.assertFalse(duration_too_long)
         self.assertTrue(len(self.db._storage) > 0)
 

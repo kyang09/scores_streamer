@@ -19,8 +19,8 @@ class TestExamTools(unittest.TestCase):
 
     def test_get_exams(self):
         self.assertTrue(len(exam_tools.get_exams()) == 0)
-        data = '{"exam" : 999, "studentId": "some_student_id", "score": 0.132}'
-        data2 = '{"exam" : 1000, "studentId": "some_student_id2", "score": 0.523}'
+        data = '{"exam" : 999, "studentId": "id1", "score": 0.132}'
+        data2 = '{"exam" : 1000, "studentId": "id2", "score": 0.523}'
         self.db.store(data)
         self.db.store(data2)
         self.assertTrue(len(exam_tools.get_exams()) > 0)
@@ -31,7 +31,7 @@ class TestExamTools(unittest.TestCase):
     def test_get_results_by_examid(self):
         results = exam_tools.get_results_by_examid("999")
         self.assertTrue(len(results) == 0)
-        data = '{"studentId":"some_student_id","exam":999,"score":0.6488820932488337}'
+        data = '{"studentId":"some_student_id","exam":999,"score":0.648}'
         self.db.store(data)
         results = exam_tools.get_results_by_examid("999")
         self.assertTrue(len(results) > 0)
@@ -64,24 +64,24 @@ class TestExamTools(unittest.TestCase):
         self.assertTrue(average == (0.123 + 0.421)/2.0)
 
     def test_is_valid_exam(self):
-        row_dict = {"" : None}
+        row_dict = {"": None}
         is_valid = exam_tools.is_valid_exam(row_dict)
         self.assertFalse(is_valid)
-        row_dict = {exam_tools.ID_FIELD_NAME : None}
+        row_dict = {exam_tools.ID_FIELD_NAME: None}
         is_valid = exam_tools.is_valid_exam(row_dict)
         self.assertFalse(is_valid)
-        row_dict = {exam_tools.ID_FIELD_NAME : 999}
+        row_dict = {exam_tools.ID_FIELD_NAME: 999}
         is_valid = exam_tools.is_valid_exam(row_dict)
         self.assertTrue(is_valid)
 
     def test_is_valid_exam_score(self):
-        row_dict = {"" : None}
+        row_dict = {"": None}
         is_valid = exam_tools.is_valid_exam_score(row_dict)
         self.assertFalse(is_valid)
-        row_dict = {exam_tools.SCORE_FIELD_NAME : None}
+        row_dict = {exam_tools.SCORE_FIELD_NAME: None}
         is_valid = exam_tools.is_valid_exam_score(row_dict)
         self.assertFalse(is_valid)
-        row_dict = {exam_tools.SCORE_FIELD_NAME : 0.123}
+        row_dict = {exam_tools.SCORE_FIELD_NAME: 0.123}
         is_valid = exam_tools.is_valid_exam_score(row_dict)
         self.assertTrue(is_valid)
 
