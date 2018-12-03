@@ -49,6 +49,8 @@ start : Start collecting scores data.
 
 stop : Stop collecting scores data.  
 
+list : Show list options.
+
 list students : Lists all students that have received at 
 least one test score.  
 
