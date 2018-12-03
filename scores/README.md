@@ -39,3 +39,6 @@ api.student_results_and_average(student_id)  # Returns a tuple of (results, aver
 exam_id = "102"
 api.exam_results_and_average(exam_id)  # Returns a tuple of (results, average)
 ```
+
+## Version
+v0.1.0
