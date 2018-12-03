@@ -5,7 +5,7 @@ import json
 
 
 class ScoreStreamThread(threading.Thread):
-    
+
     def __init__(self, db, url):
         threading.Thread.__init__(self, target=self._stream_threader)
         self._kill = threading.Event()
