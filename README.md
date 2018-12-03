@@ -1,3 +1,6 @@
+# Scores Streamer
+This project contains a package project `scores` and a CLI tool that uses the `scores` package.
+
 ## Setup
 First, make sure you install Python 3:  
     https://www.python.org/downloads  
@@ -68,3 +71,6 @@ menu : Show the commands menu.
 
 quit : Exit the program.  
 ```
+
+## Version
+v0.1.0
