@@ -51,3 +51,5 @@ class TestScoreStreamThread(unittest.TestCase):
 
     def tearDown(self):
         self.stream_thread.stop()
+        del self.db
+        del self.stream_thread

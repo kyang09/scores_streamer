@@ -49,7 +49,8 @@ def get_average_by_studentid(student_id):
     results = memstore.get(Student, ID_FIELD_NAME, student_id)
     for row_dict in results:
         scores.append(row_dict["score"])  # score is a decimal value.
-    average = sum(scores)/len(scores)
+    if len(scores) > 0:
+        average = sum(scores)/len(scores)
     return average
 
 
@@ -78,7 +79,7 @@ def is_valid_student(row_dict):
     :param row_dict: Row in the datastore represented as a dictionary.
     :returns: Boolean True or False.
     """
-    if ID_FIELD_NAME not in row_dict and row_dict[ID_FIELD_NAME] == None:
+    if ID_FIELD_NAME not in row_dict or row_dict[ID_FIELD_NAME] == None:
         return False
     if not isinstance(row_dict[ID_FIELD_NAME], str):
         return False

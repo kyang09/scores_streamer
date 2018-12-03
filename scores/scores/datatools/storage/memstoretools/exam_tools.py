@@ -46,7 +46,8 @@ def get_average_by_examid(exam_id):
     results = memstore.get(Exam, ID_FIELD_NAME, exam_id)
     for row_dict in results:
         scores.append(row_dict["score"])  # score is a decimal value.
-    average = sum(scores)/len(scores)
+    if len(scores) > 0:
+        average = sum(scores)/len(scores)
     return average
 
 

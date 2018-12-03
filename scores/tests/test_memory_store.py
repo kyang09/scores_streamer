@@ -8,8 +8,9 @@ from scores.datatools.exam import Exam
 from scores.datatools.storage.memstoretools import student_tools
 from scores.datatools.storage.memstoretools import exam_tools
 
+
 class TestMemoryStore(unittest.TestCase):
-    """Tests for ScoreStreamThread."""
+    """Tests for MemoryStore."""
 
     def setUp(self):
         self.db = MemoryStore()
@@ -73,7 +74,7 @@ class TestMemoryStore(unittest.TestCase):
         self.assertTrue(exams_from_db[1]["exam"] == 123)
         self.assertTrue(students_from_db[1]["score"] == 0.1488820932488337)
         self.assertTrue(exams_from_db[1]["score"] == 0.1488820932488337)
-        """
+        
     def test_db_get_specific(self):
         self.db.init([
             (student_tools.ID_FIELD_NAME, Student),
@@ -84,7 +85,6 @@ class TestMemoryStore(unittest.TestCase):
         self.db.store(data)
         self.assertTrue(len(self.db._storage) == 1)
         student_results= self.db.get(Student, student_tools.ID_FIELD_NAME, "some_student_id")
-        print(student_results)
         self.assertTrue(len(student_results) == 1)
         exam_results = self.db.get(Exam, exam_tools.ID_FIELD_NAME, "999")
         self.assertTrue(len(exam_results) == 1)
@@ -94,8 +94,9 @@ class TestMemoryStore(unittest.TestCase):
         self.assertTrue(exam_results[0]["studentId"] == "some_student_id")
         self.assertTrue(exam_results[0]["exam"] == 999)
         self.assertTrue(exam_results[0]["score"] == 0.132)
-    """
+    
     def tearDown(self):
         del self.db._storage
         del self.db._lookup_tbl
         del self.db._lookup_classes
+        del self.db
