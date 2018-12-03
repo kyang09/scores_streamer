@@ -43,7 +43,7 @@ def get_average_by_studentid(student_id):
     :param student_id: ID of student.
     :returns: Float value of average.
     """
-    average = -1.0 # Average of -1.0 means student doesn't have any scores.
+    average = -1.0  # Average of -1.0 means student doesn't have any scores.
     scores = []
     memstore = MemoryStore()
     results = memstore.get(Student, ID_FIELD_NAME, student_id)
@@ -61,7 +61,7 @@ def get_results_average_by_studentid(student_id):
     :param student_id: ID of student.
     :returns: Tuple of (string results list, float average)
     """
-    average = -1.0 # Average of -1.0 means student doesn't have any scores.
+    average = -1.0  # Average of -1.0 means student doesn't have any scores.
     scores = []
     memstore = MemoryStore()
     results = memstore.get(Student, ID_FIELD_NAME, student_id)
@@ -79,7 +79,7 @@ def is_valid_student(row_dict):
     :param row_dict: Row in the datastore represented as a dictionary.
     :returns: Boolean True or False.
     """
-    if ID_FIELD_NAME not in row_dict or row_dict[ID_FIELD_NAME] == None:
+    if ID_FIELD_NAME not in row_dict or row_dict[ID_FIELD_NAME] is None:
         return False
     if not isinstance(row_dict[ID_FIELD_NAME], str):
         return False
