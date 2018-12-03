@@ -7,7 +7,7 @@ def print_list_students(api):
     if len(results) == 0:
         print("No results!")
     else:
-        print(results)
+        print_list_results(results)
 
 
 def print_list_exams(api):
@@ -15,7 +15,7 @@ def print_list_exams(api):
     if len(results) == 0:
         print("No results!")
     else:
-        print(results)
+        print_list_results(results)
 
 
 def print_list_avg_student(api, sid):
@@ -25,7 +25,7 @@ def print_list_avg_student(api, sid):
     if result_tup[1] == -1.0:
         print("No average!")
     if len(result_tup[0]) > 0 and result_tup[1] > -1.0:
-        print(result_tup)
+        print_avg_tuple_results(result_tup)
 
 
 def print_list_avg_exams(api, eid):
@@ -35,7 +35,19 @@ def print_list_avg_exams(api, eid):
     if result_tup[1] == -1.0:
         print("No average!")
     if len(result_tup[0]) > 0 and result_tup[1] > -1.0:
-        print(result_tup)
+        print_avg_tuple_results(result_tup)
+
+
+def print_list_results(results):
+    for res in results:
+        print(res)
+
+def print_avg_tuple_results(results):
+    if isinstance(results[0], list) and isinstance(results[1], float):
+        for res in results[0]:
+            print(res)
+        print("Average score: " + str(results[1]))
+
 
 
 def main(argv):
@@ -67,14 +79,16 @@ def main(argv):
 
     if len(argv) > 1:
         if argv[1] == "start":
-            print("started")
+            print("Starting data collection...")
             api.start()
+            print("Data collection started.")
     
     cli_commands_message() # Prints out command options.
 
     prompt_user = True
     while prompt_user:
-        user_input = input("Please enter a command: ")
+        user_input = input("\nPlease enter a command: ")
+        print("")
         if user_input == "list":
             cli_list_options_message() # Prints out options for list command.
             sub_user_input = input("Choose what to list: ")
@@ -105,19 +119,19 @@ def main(argv):
             exam_id = user_input.split()[-1]
             print_list_avg_exams(api, exam_id)
         elif user_input == "start":
-            print("starting")
+            print("Starting data collection...")
             api.start()
-            print("started")
+            print("Data collection started.")
         elif user_input == "stop":
-            print("stopping")
+            print("Stopping data collection...")
             api.stop()
-            print("stopped")
+            print("Data collection stopped.")
         elif user_input == "menu":
             print("menu")
             cli_commands_message()
         elif user_input == "quit":
-            print("quitting and stopping")
-            api.stop() # Since we made our thread a daemon (to main thread), we may not need to call stop() here.
+            print("Quitting")
+            api.stop()
             prompt_user = False
         else:
             print("Not a valid option!")
