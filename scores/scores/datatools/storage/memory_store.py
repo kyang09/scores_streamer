@@ -162,7 +162,7 @@ class MemoryStore:
 
     def _get_all_with_id(self, lookup_class, identifier=""):
         """
-        Gets MemoryStore data from storage based on class and column name.
+        Gets MemoryStore data from storage based on class and identifier.
 
         :param lookup_class: The class to look up in the _lookup_tbl.
         :param identifier: Value that represents the object at a column. Default is "".
