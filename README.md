@@ -40,7 +40,7 @@ If installed correctly, there should be no error.
         `py -3 scores_cli.py`  
     On Mac/Linux:  
         `python3 scores_cli.py`  
-**You may also run the tool with athe option to start collecting data right away:**  
+**You may also run the tool with the option to start collecting data right away:**  
     On Windows:  
         `py -3 scores_cli.py start`  
     On Mac/Linux:  
