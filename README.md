@@ -71,6 +71,17 @@ menu : Show the commands menu.
 
 quit : Exit the program.  
 ```
+## Testing
+The `scores` package project contains a `tests` directory.  
+It contains API tests and module tests.  
+For convenience, there is a provided test suite in the `tests` directory.  
+**To run the test suite from the package project root:**  
+On Windows:  
+`py -3 tests/score_test_suite.py`  
+On Mac/Linux:  
+`python3 tests/score_test_suite.py`  
+  
+The tests may take a while to run due to the tests with streaming data.  
 
 ## Version
 v0.1.0
