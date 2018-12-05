@@ -15,7 +15,6 @@ loader = unittest.TestLoader()
 suite = unittest.TestSuite()
 
 # Add tests from test modules to the test suite.
-suite.addTest(test_scores_api.TestScoresApi('test_exam_results_and_average'))
 suite.addTests(loader.loadTestsFromModule(test_scores_api))
 suite.addTests(loader.loadTestsFromModule(test_score_stream_thread))
 suite.addTests(loader.loadTestsFromModule(test_memory_store))
