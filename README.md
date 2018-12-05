@@ -5,7 +5,7 @@ This project contains a package project `scores` and a CLI tool that uses the `s
 First, make sure you install Python 3:  
     https://www.python.org/downloads  
 
-**If successful or present, you should either be able to enter the Python shell in the commandline like this:**  
+**If successful or present, you should either be able to enter the Python shell in the command-line like this:**  
     On Windows:  
         `py -3`.  
     On Mac/Linux:  
