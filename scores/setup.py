@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="scores",
-    version="0.0.1",
+    version="0.1.0",
     author="Kevin Yang",
     author_email="kevintoyang@gmail.com",
     description="Simple API for processing score data from a stream.",
